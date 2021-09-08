@@ -20,6 +20,11 @@ import '@/style/global.less'
 import promiseFinally from 'promise.prototype.finally'
 promiseFinally.shim()
 
+// 全局注册k-form-design
+import KFormDesign from './components/k-form-design/packages'
+import './components/k-form-design/styles/form-design.less'
+Vue.use(KFormDesign)
+
 Vue.config.productionTip = false
 
 Vue.use(VueAxios)

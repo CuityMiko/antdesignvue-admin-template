@@ -12,6 +12,7 @@
   "dependencies": {
     "ant-design-vue": "1.7.2",
     "axios": "^0.21.1",
+    "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
     "enquire.js": "^2.1.6",
     "lodash.get": "^4.4.2",
@@ -21,11 +22,15 @@
     "nprogress": "^0.2.0",
     "promise.prototype.finally": "^3.1.2",
     "query-string": "^7.0.1",
+    "vcolorpicker": "^1.1.0",
     "vue": "^2.6.12",
     "vue-clipboard2": "^0.3.1",
+    "vue-codemirror-lite": "^1.0.4",
     "vue-ls": "^3.2.1",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.4.3",
     "vue-svg-component-runtime": "^1.0.1",
+    "vuedraggable": "^2.23.2",
     "vuex": "^3.5.1"
   },
   "devDependencies": {

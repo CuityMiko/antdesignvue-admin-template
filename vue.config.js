@@ -1,15 +1,15 @@
-const path = require('path')
-const webpack = require('webpack')
-const createThemeColorReplacerPlugin = require('./src/config/plugin.config')
-const globalConfig = require('./src/config/index')
-const CompressionWebpackPlugin = require('compression-webpack-plugin') // gzip压缩
-const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i // gzip匹配文件规则
+const path = require('path');
+const webpack = require('webpack');
+const createThemeColorReplacerPlugin = require('./src/config/plugin.config');
+const globalConfig = require('./src/config/index');
+const CompressionWebpackPlugin = require('compression-webpack-plugin'); // gzip压缩
+const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i; // gzip匹配文件规则
 
 function resolve(dir) {
-  return path.join(__dirname, dir)
+  return path.join(__dirname, dir);
 }
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
 const assetsCDN = {
   externals: {
@@ -27,7 +27,7 @@ const assetsCDN = {
     '//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js',
     '//cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js',
   ],
-}
+};
 
 const vueConfig = {
   productionSourceMap: false,
@@ -51,9 +51,9 @@ const vueConfig = {
     },
   },
   chainWebpack: (config) => {
-    config.resolve.alias.set('@$', resolve('src')).set('@ant-design/icons/lib/dist$', resolve('src/config/icons.js'))
-    const svgRule = config.module.rule('svg')
-    svgRule.uses.clear()
+    config.resolve.alias.set('@$', resolve('src')).set('@ant-design/icons/lib/dist$', resolve('src/config/icons.js'));
+    const svgRule = config.module.rule('svg');
+    svgRule.uses.clear();
     svgRule
       .oneOf('inline')
       .resourceQuery(/inline/)
@@ -66,14 +66,14 @@ const vueConfig = {
       .loader('file-loader')
       .options({
         name: 'assets/[name].[hash:8].[ext]',
-      })
+      });
 
     // 正式环境张注入CDN
     if (isProd) {
       config.plugin('html').tap((args) => {
-        args[0].cdn = assetsCDN
-        return args
-      })
+        args[0].cdn = assetsCDN;
+        return args;
+      });
     }
   },
   css: {
@@ -82,9 +82,9 @@ const vueConfig = {
         lessOptions: {
           modifyVars: {
             // 通过修改默认ant主题的less变量实现自定义主题
-            // 'primary-color': 'red',
-            // 'link-color': 'red',
-            // 'border-radius-base': '0px',
+            'primary-color': '#1890FF',
+            'layout-color': '#9867f7',
+            'border-radius-base': '0px',
           },
           javascriptEnabled: true,
         },
@@ -102,10 +102,10 @@ const vueConfig = {
       },
     },
   },
-}
+};
 
 if (globalConfig.prodShowSettingDrawer || process.env.NODE_ENV !== 'production') {
-  vueConfig.configureWebpack.plugins.push(createThemeColorReplacerPlugin())
+  vueConfig.configureWebpack.plugins.push(createThemeColorReplacerPlugin());
 }
 
 if (isProd) {
@@ -118,7 +118,7 @@ if (isProd) {
       minRatio: 0.8, // 只有压缩率比这个值小的资源才会被处理
       deleteOriginalAssets: false, // 是否删除原始资源 默认false
     })
-  )
+  );
 }
 
-module.exports = vueConfig
+module.exports = vueConfig;

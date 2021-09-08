@@ -1,7 +1,5 @@
 <template>
-  <section>
-    <h1>表单设置页</h1>
-  </section>
+  <k-form-design title="自定义表单设置面板" />
 </template>
 
 <script>
