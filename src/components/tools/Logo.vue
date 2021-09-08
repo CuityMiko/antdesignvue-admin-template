@@ -23,7 +23,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: 'G端主线',
       required: false,
     },
     showTitle: {

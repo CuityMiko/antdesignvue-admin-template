@@ -8,11 +8,10 @@ import router from '@/router'
 import store from '@/store/'
 import { VueAxios } from '@/utils/request'
 
-// --- 注意 ---- mockjs不支持IE，正式项目中请不要在 production ENV中使用
 import '@/mock'
 
 import setStoreWidthConfig from '@/core/set_store_width_config'
-import '@/core/lazy_use'
+import '@/core/lazy_use' // 按需加载
 import '@/permission' // permission control
 import '@/utils/filter' // global filter
 import '@/style/global.less'

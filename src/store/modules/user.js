@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/user'
+import { login, getInfo, logout } from '@/service/user'
 import { TOKEN_NAME } from '@/config/index'
 import { welcome } from '@/utils/util'
 

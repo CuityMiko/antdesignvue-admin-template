@@ -66,7 +66,7 @@ const projects = () => {
       {
         id: 4,
         cover: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-        title: 'Ant Design Pro',
+        title: 'G端主线',
         description: '那时候我只会想自己想要什么，从不想自己拥有什么',
         status: 1,
         updatedAt: '2018-07-26 00:00:00',

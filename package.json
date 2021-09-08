@@ -1,11 +1,11 @@
 {
-  "name": "vue-antd-pro",
+  "name": "lyzh-gplatform-main-form",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve --open",
-    "build-prod": "vue-cli-service build --mode production_env",
-    "build-test": "vue-cli-service build --mode test_env",
+    "build:prod": "vue-cli-service build --mode production",
+    "build:test": "vue-cli-service build --mode test",
     "report": "vue-cli-service build --report",
     "lint-fix": "vue-cli-service lint --fix"
   },

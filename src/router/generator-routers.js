@@ -1,4 +1,4 @@
-import { getCurrentUserNav } from '@/api/user'
+import { getCurrentUserNav } from '@/service/user'
 
 import { BasicLayout, BlankLayout, PageLayout, RouteLayout } from '@/layouts'
 

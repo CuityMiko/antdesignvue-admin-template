@@ -8,7 +8,7 @@
       <a href="https://ant.design/">Ant Design</a>
       <a href="https://vue.ant.design/">Vue Antd</a>
     </div>
-    <div class="copyright">Copyright<a-icon type="copyright" /> 2020 <span>哔哩哔哩动画矿业无限公司</span></div>
+    <div class="copyright">Copyright<a-icon type="copyright" /> 2020 <span>Lyzh FED</span></div>
   </footer>
 </template>
 
