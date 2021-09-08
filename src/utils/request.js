@@ -3,14 +3,13 @@ import axios from 'axios'
 import store from '@/store'
 import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
-import { TOKEN_NAME, prodUseMock } from '@/config/index'
-
-let baseURL = prodUseMock ? '/api' : process.env.VUE_APP_API_BASE_URL
+import { TOKEN_NAME } from '@/config/index'
+import qs from 'query-string'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL, // api base_url
-  timeout: 6000, // 请求超时时间
+  baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
+  timeout: 60000, // 请求超时时间
 })
 
 const err = (error) => {
@@ -44,7 +43,13 @@ const err = (error) => {
 service.interceptors.request.use((config) => {
   const token = Vue.ls.get(TOKEN_NAME)
   if (token) {
-    config.headers['Access-Token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+    config.headers[TOKEN_NAME] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+  } else {
+    try {
+      // 从url中获取token
+      const _query = qs.parse(window.location.search)
+      config.headers[TOKEN_NAME] = _query.token
+    } catch (error) {}
   }
   return config
 }, err)

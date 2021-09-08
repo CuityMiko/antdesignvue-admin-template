@@ -19,8 +19,6 @@ const constantRouterComponents = {
 
   // views
   Index: () => import('@/views/dashboard/Analysis'),
-  TableList: () => import('@/views/example/TableList'),
-  TableTest: () => import('@/views/example/test'),
 }
 
 // 根级菜单

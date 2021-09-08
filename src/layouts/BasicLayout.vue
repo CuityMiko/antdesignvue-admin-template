@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      showDrawer: prodShowSettingDrawer || process.env.NODE_ENV !== 'production',
+      showDrawer: prodShowSettingDrawer,
       collapsed: false,
       menus: [],
     }

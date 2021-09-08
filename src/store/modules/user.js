@@ -72,7 +72,7 @@ const user = {
               role.permissionList = role.permissions.map((permission) => {
                 return permission.permissionId
               })
-              console.log('当前账号所拥有的权限：', role.permissionList)
+              // console.log('当前账号所拥有的权限：', role.permissionList)
               commit('SET_ROLES', result.role)
               commit('SET_INFO', result)
             } else {

@@ -174,7 +174,7 @@ export default {
   },
   watch: {},
   mounted() {
-    updateTheme(this.primaryColor)
+    // updateTheme(this.primaryColor)
     if (this.colorWeak !== config.colorWeak) {
       updateColorWeak(this.colorWeak)
     }

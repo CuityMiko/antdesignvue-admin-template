@@ -1,20 +1,15 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteLayout } from '@/layouts'
+import { UserLayout, BasicLayout, RouteLayout, BlankLayout } from '@/layouts'
 import { openPermission } from '@/config/index'
-
-import exampleModle from '@/router/modules/example'
-import linkModle from '@/router/modules/link'
-
-// 自定义 icon引入
-// import { bxAnaalyse } from '@/core/icons'
+import formModle from '@/router/modules/form'
 
 // 默认加载和登陆成功跳转路由
 export const defaultRootRoutePath = '/dashboard'
 
 // 不跳转白名单路由名
-export const whiteList = ['login', 'register', 'registerResult']
+export const whiteList = ['login', 'register', 'registerResult', 'FormList', 'FormSetting', 'FormDetail', 'FormCompare']
 
-// 前端未找到页面路由（固定不用改）
+// 前端未找到页面路由
 export const notFoundRouter = {
   path: '*',
   redirect: '/404',
@@ -32,10 +27,11 @@ export const constantRouterMap = [
       {
         path: 'login',
         name: 'login',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login'),
+        component: () => import(/* webpackChunkName: "login" */ '@/views/login/index'),
       },
     ],
   },
+  formModle,
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
@@ -67,8 +63,6 @@ let syncRouterMap = [
           },
         ],
       },
-      exampleModle,
-      linkModle,
     ],
   },
 ]
