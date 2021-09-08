@@ -1,10 +1,10 @@
-import Mock from 'mockjs2'
-import { builder, getBody } from '../util'
+import Mock from 'mockjs2';
+import { builder, getBody } from '../util';
 
 // 模拟拥有不同菜单权限的账户
 const info = (options) => {
-  const body = getBody(options)
-  const token = body.token
+  const body = getBody(options);
+  const token = body.token;
   const admin_user = {
     id: '4291d7da9005377ec9aec4a71ea837f',
     name: 'admin',
@@ -139,7 +139,7 @@ const info = (options) => {
         },
       ],
     },
-  }
+  };
   const super_user = {
     id: '4391d7da9005377ec9aec4a71ea837f',
     name: 'super',
@@ -274,18 +274,18 @@ const info = (options) => {
         },
       ],
     },
-  }
+  };
   const userInfo = {
     '4291d7da9005377ec9aec4a71ea837f': admin_user,
     '4391d7da9005377ec9aec4a71ea837f': super_user,
-  }
-  return builder(userInfo[token])
-}
+  };
+  return builder(userInfo[token]);
+};
 
 const nav = (options) => {
-  const body = getBody(options)
-  console.log(options)
-  const token = body.token
+  const body = getBody(options);
+  console.log(options);
+  const token = body.token;
   const admin_nav = [
     {
       parentId: 0,
@@ -328,7 +328,7 @@ const nav = (options) => {
       component: '500',
       meta: { title: '500', show: false },
     },
-  ]
+  ];
   const super_nav = [
     {
       parentId: 0,
@@ -347,13 +347,13 @@ const nav = (options) => {
       component: 'Index',
       meta: { title: 'hello', keepAlive: true, permission: ['dashboard'] },
     },
-  ]
+  ];
   const userNav = {
     '4291d7da9005377ec9aec4a71ea837f': admin_nav,
     '4391d7da9005377ec9aec4a71ea837f': super_nav,
-  }
-  return builder(userNav[token])
-}
+  };
+  return builder(userNav[token]);
+};
 
-Mock.mock(/\/api\/user\/info/, 'post', info)
-Mock.mock(/\/api\/user\/nav/, 'post', nav)
+Mock.mock(/\/api\/user\/info/, 'post', info);
+Mock.mock(/\/api\/user\/nav/, 'post', nav);

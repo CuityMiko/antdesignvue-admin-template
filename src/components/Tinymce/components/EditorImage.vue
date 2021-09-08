@@ -28,11 +28,11 @@
 <script>
 function getBase64(file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 }
 export default {
   name: 'EditorSlideUpload',
@@ -62,39 +62,39 @@ export default {
         },
       ],
       upLoadImgUrl: process.env.VUE_APP_BASE_API_UPLOAD,
-    }
+    };
   },
   methods: {
     init() {
-      this.fileList = []
-      this.imgList = {}
+      this.fileList = [];
+      this.imgList = {};
     },
     handleCancel() {
-      this.previewVisible = false
+      this.previewVisible = false;
     },
     async handlePreview(file) {
       if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj)
+        file.preview = await getBase64(file.originFileObj);
       }
-      this.previewImage = file.url || file.preview
-      this.previewVisible = true
+      this.previewImage = file.url || file.preview;
+      this.previewVisible = true;
     },
     handleChange({ fileList }) {
-      this.fileList = fileList
+      this.fileList = fileList;
     },
     handleDialogCancel() {
-      this.dialogVisible = false
-      this.init()
+      this.dialogVisible = false;
+      this.init();
     },
     handleDialogOk() {
-      this.dialogVisible = false
+      this.dialogVisible = false;
       if (this.fileList.length > 0) {
-        this.$emit('successCBK', this.fileList)
+        this.$emit('successCBK', this.fileList);
       }
-      this.init()
+      this.init();
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped></style>

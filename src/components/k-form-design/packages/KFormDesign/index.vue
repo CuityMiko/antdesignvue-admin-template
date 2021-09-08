@@ -33,56 +33,26 @@
         :class="{
           'show-head': showHead,
           'toolbars-top': toolbarsTop,
-          'show-head-and-toolbars-top': toolbarsTop && showHead
+          'show-head-and-toolbars-top': toolbarsTop && showHead,
         }"
       >
         <!-- 左侧控件区域 start -->
         <aside class="left">
-          <a-collapse
-            @change="collapseChange"
-            :defaultActiveKey="collapseDefaultActiveKey"
-          >
+          <a-collapse @change="collapseChange" :defaultActiveKey="collapseDefaultActiveKey">
             <!-- 基础控件 start -->
-            <a-collapse-panel
-              v-if="basicsArray.length > 0"
-              header="基础控件"
-              key="1"
-            >
-              <collapseItem
-                :list="basicsArray"
-                @generateKey="generateKey"
-                @handleListPush="handleListPush"
-                @start="handleStart"
-              />
+            <a-collapse-panel v-if="basicsArray.length > 0" header="基础控件" key="1">
+              <collapseItem :list="basicsArray" @generateKey="generateKey" @handleListPush="handleListPush" @start="handleStart" />
             </a-collapse-panel>
             <!-- 基础控件 end -->
             <!-- 自定义控件 start -->
-            <a-collapse-panel
-              v-if="customComponents.list.length > 0"
-              :header="customComponents.title"
-              key="3"
-            >
-              <collapseItem
-                :list="customComponents.list"
-                @generateKey="generateKey"
-                @handleListPush="handleListPush"
-                @start="handleStart"
-              />
+            <a-collapse-panel v-if="customComponents.list.length > 0" :header="customComponents.title" key="3">
+              <collapseItem :list="customComponents.list" @generateKey="generateKey" @handleListPush="handleListPush" @start="handleStart" />
             </a-collapse-panel>
             <!-- 自定义控件 end -->
 
             <!-- 布局控件 start -->
-            <a-collapse-panel
-              v-if="layoutArray.length > 0"
-              header="布局控件"
-              key="4"
-            >
-              <collapseItem
-                :list="layoutArray"
-                @generateKey="generateKey"
-                @handleListPush="handleListPush"
-                @start="handleStart"
-              />
+            <a-collapse-panel v-if="layoutArray.length > 0" header="布局控件" key="4">
+              <collapseItem :list="layoutArray" @generateKey="generateKey" @handleListPush="handleListPush" @start="handleStart" />
             </a-collapse-panel>
             <!-- 布局控件 end -->
           </a-collapse>
@@ -137,23 +107,12 @@
 
         <!-- 右侧控件属性区域 start -->
         <aside class="right">
-          <a-tabs
-            :activeKey="activeKey"
-            @change="changeTab"
-            :tabBarStyle="{ margin: 0 }"
-          >
+          <a-tabs :activeKey="activeKey" @change="changeTab" :tabBarStyle="{ margin: 0 }">
             <a-tab-pane :key="1" tab="表单属性设置">
-              <formProperties
-                :config="data.config"
-                :previewOptions="previewOptions"
-              />
+              <formProperties :config="data.config" :previewOptions="previewOptions" />
             </a-tab-pane>
             <a-tab-pane :key="2" tab="控件属性设置">
-              <formItemProperties
-                class="form-item-properties"
-                :selectItem="selectItem"
-                :hideModel="hideModel"
-              />
+              <formItemProperties class="form-item-properties" :selectItem="selectItem" :hideModel="hideModel" />
             </a-tab-pane>
           </a-tabs>
         </aside>
@@ -169,100 +128,86 @@
  * date 2019-11-20
  * description 表单设计器
  */
-import kHeader from "./module/header";
-import operatingArea from "./module/operatingArea";
+import kHeader from './module/header';
+import operatingArea from './module/operatingArea';
 
 // import kFooter from "./module/footer";
-import kFormComponentPanel from "./module/formComponentPanel";
-import kJsonModal from "./module/jsonModal";
-import kCodeModal from "./module/codeModal";
-import collapseItem from "./module/collapseItem";
-import importJsonModal from "./module/importJsonModal";
-import previewModal from "../KFormPreview/index.vue";
-import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+import kFormComponentPanel from './module/formComponentPanel';
+import kJsonModal from './module/jsonModal';
+import kCodeModal from './module/codeModal';
+import collapseItem from './module/collapseItem';
+import importJsonModal from './module/importJsonModal';
+import previewModal from '../KFormPreview/index.vue';
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
 
-import { Revoke } from "../core/revoke";
-import {
-  basicsList,
-  layoutList,
-  customComponents
-} from "./config/formItemsConfig";
-import formItemProperties from "./module/formItemProperties";
-import formProperties from "./module/formProperties";
+import { Revoke } from '../core/revoke';
+import { basicsList, layoutList, customComponents } from './config/formItemsConfig';
+import formItemProperties from './module/formItemProperties';
+import formProperties from './module/formProperties';
 export default {
-  name: "KFormDesign",
+  name: 'KFormDesign',
   props: {
     title: {
       type: String,
-      default: "表单设计器 --by kcz"
+      default: '表单设计器 --by kcz',
     },
     showHead: {
       type: Boolean,
-      default: true
+      default: true,
     },
     hideResetHint: {
       type: Boolean,
-      default: false
+      default: false,
     },
     toolbarsTop: {
       type: Boolean,
-      default: false
+      default: false,
     },
     toolbars: {
       type: Array,
-      default: () => [
-        "save",
-        "preview",
-        "importJson",
-        "exportJson",
-        "exportCode",
-        "reset",
-        "close",
-        "undo",
-        "redo"
-      ]
+      default: () => ['save', 'preview', 'importJson', 'exportJson', 'exportCode', 'reset', 'close', 'undo', 'redo'],
     },
     showToolbarsText: {
       type: Boolean,
-      default: false
+      default: false,
     },
     fields: {
       type: Array,
       default: () => [
-        "input",
-        "textarea",
-        "number",
-        "select",
-        "checkbox",
-        "radio",
-        "date",
-        "time",
-        "rate",
-        "slider",
-        "uploadFile",
-        "uploadImg",
-        "cascader",
-        "treeSelect",
-        "batch",
-        "selectInputList",
-        "editor",
-        "switch",
-        "button",
-        "alert",
-        "text",
-        "html",
-        "divider",
-        "card",
-        "tabs",
-        "grid",
-        "table"
-      ]
+        'input',
+        'textarea',
+        'number',
+        'select',
+        'checkbox',
+        'radio',
+        'date',
+        'time',
+        'rate',
+        'slider',
+        'uploadFile',
+        'uploadImg',
+        'cascader',
+        'treeSelect',
+        'batch',
+        'selectInputList',
+        'editor',
+        'switch',
+        'button',
+        'alert',
+        'text',
+        'html',
+        'divider',
+        'card',
+        'tabs',
+        'grid',
+        'table',
+      ],
     },
     hideModel: {
       // 隐藏数据字段
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -271,39 +216,29 @@ export default {
       activeKey: 1,
       updateTime: 0,
       updateRecordTime: 0,
-      startType: "",
+      startType: '',
       revoke: null,
       recordList: [],
       redoList: [],
-      noModel: [
-        "button",
-        "divider",
-        "card",
-        "grid",
-        "tabs",
-        "table",
-        "alert",
-        "text",
-        "html"
-      ],
+      noModel: ['button', 'divider', 'card', 'grid', 'tabs', 'table', 'alert', 'text', 'html'],
       data: {
         list: [],
         config: {
-          layout: "horizontal",
+          layout: 'horizontal',
           labelCol: { xs: 4, sm: 4, md: 4, lg: 4, xl: 4, xxl: 4 },
           labelWidth: 100,
-          labelLayout: "flex",
+          labelLayout: 'flex',
           wrapperCol: { xs: 18, sm: 18, md: 18, lg: 18, xl: 18, xxl: 18 },
           hideRequiredMark: false,
-          customStyle: ""
-        }
+          customStyle: '',
+        },
       },
       previewOptions: {
-        width: 850
+        width: 850,
       },
       selectItem: {
-        key: ""
-      }
+        key: '',
+      },
     };
   },
   components: {
@@ -317,7 +252,7 @@ export default {
     previewModal,
     kFormComponentPanel,
     formItemProperties,
-    formProperties
+    formProperties,
   },
   watch: {
     data: {
@@ -327,38 +262,36 @@ export default {
         });
       },
       deep: true,
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   computed: {
     basicsArray() {
       // 计算需要显示的基础字段
-      return basicsList.filter(item => this.fields.includes(item.type));
+      return basicsList.filter((item) => this.fields.includes(item.type));
     },
     layoutArray() {
       // 计算需要显示的布局字段
-      return layoutList.filter(item => this.fields.includes(item.type));
+      return layoutList.filter((item) => this.fields.includes(item.type));
     },
     collapseDefaultActiveKey() {
       // 计算当前展开的控件列表
-      const defaultActiveKey = window.localStorage.getItem(
-        "collapseDefaultActiveKey"
-      );
+      const defaultActiveKey = window.localStorage.getItem('collapseDefaultActiveKey');
       if (defaultActiveKey) {
-        return defaultActiveKey.split(",");
+        return defaultActiveKey.split(',');
       } else {
-        return ["1"];
+        return ['1'];
       }
-    }
+    },
   },
   methods: {
     generateKey(list, index) {
       // 生成key值
-      const key = list[index].type + "_" + new Date().getTime();
+      const key = list[index].type + '_' + new Date().getTime();
       this.$set(list, index, {
         ...list[index],
         key,
-        model: key
+        model: key,
       });
       if (this.noModel.includes(list[index].type)) {
         // 删除不需要的model属性
@@ -370,11 +303,11 @@ export default {
       // 生成key值
       if (!this.selectItem.key) {
         // 在没有选择表单时，将数据push到this.data.list
-        const key = item.type + "_" + new Date().getTime();
+        const key = item.type + '_' + new Date().getTime();
         item = {
           ...item,
           key,
-          model: key
+          model: key,
         };
         if (this.noModel.includes(item.type)) {
           // 删除不需要的model属性
@@ -422,31 +355,31 @@ export default {
       }
 
       this.$confirm({
-        title: "警告",
-        content: "是否确认清空内容?",
-        okText: "是",
-        okType: "danger",
-        cancelText: "否",
+        title: '警告',
+        content: '是否确认清空内容?',
+        okText: '是',
+        okType: 'danger',
+        cancelText: '否',
         onOk: () => {
           this.resetData();
-        }
+        },
       });
     },
     resetData() {
       this.data = {
         list: [],
         config: {
-          layout: "horizontal",
+          layout: 'horizontal',
           labelCol: { xs: 4, sm: 4, md: 4, lg: 4, xl: 4, xxl: 4 },
           labelWidth: 100,
-          labelLayout: "flex",
+          labelLayout: 'flex',
           wrapperCol: { xs: 18, sm: 18, md: 18, lg: 18, xl: 18, xxl: 18 },
           hideRequiredMark: false,
-          customStyle: ""
-        }
+          customStyle: '',
+        },
       };
-      this.handleSetSelectItem({ key: "" });
-      this.$message.success("已清空");
+      this.handleSetSelectItem({ key: '' });
+      this.$message.success('已清空');
     },
     handleSetSelectItem(record) {
       // 操作间隔不能低于100毫秒
@@ -485,23 +418,23 @@ export default {
      */
     getFieldSchema() {
       const fields = [];
-      const traverse = array => {
-        array.forEach(element => {
-          if (element.type === "grid" || element.type === "tabs") {
+      const traverse = (array) => {
+        array.forEach((element) => {
+          if (element.type === 'grid' || element.type === 'tabs') {
             // 栅格布局
-            element.columns.forEach(item => {
+            element.columns.forEach((item) => {
               traverse(item.list);
             });
-          } else if (element.type === "card") {
+          } else if (element.type === 'card') {
             // 卡片布局
             traverse(element.list);
-          } else if (element.type === "batch") {
+          } else if (element.type === 'batch') {
             // 动态表格内复制
             traverse(element.list);
-          } else if (element.type === "table") {
+          } else if (element.type === 'table') {
             // 表格布局
-            element.trs.forEach(item => {
-              item.tds.forEach(val => {
+            element.trs.forEach((item) => {
+              item.tds.forEach((val) => {
                 traverse(val.list);
               });
             });
@@ -518,12 +451,12 @@ export default {
     handleSetData(data) {
       // 用于父组件赋值
       try {
-        if (typeof data !== "object") {
+        if (typeof data !== 'object') {
           return false;
         } else {
           this.data = data;
           // 导入json数据后，需要清除已选择key
-          this.handleSetSelectItem({ key: "" });
+          this.handleSetSelectItem({ key: '' });
         }
         return true;
       } catch (error) {
@@ -533,7 +466,7 @@ export default {
     },
     collapseChange(val) {
       // 点击collapse时，保存当前collapse状态
-      window.localStorage.setItem("collapseDefaultActiveKey", val);
+      window.localStorage.setItem('collapseDefaultActiveKey', val);
     },
     handleStart(type) {
       this.startType = type;
@@ -551,7 +484,7 @@ export default {
       }
       this.data = record;
 
-      this.handleSetSelectItem({ key: "" });
+      this.handleSetSelectItem({ key: '' });
     },
 
     /**
@@ -569,20 +502,20 @@ export default {
 
     handleSave() {
       // 保存函数
-      this.$emit("save", JSON.stringify(this.data));
+      this.$emit('save', JSON.stringify(this.data));
     },
     getValue() {
       // 获取数据
       return this.data;
     },
     handleClose() {
-      this.$emit("close");
-    }
+      this.$emit('close');
+    },
   },
   created() {
     this.revoke = new Revoke();
     this.recordList = this.revoke.recordList;
     this.redoList = this.revoke.redoList;
-  }
+  },
 };
 </script>

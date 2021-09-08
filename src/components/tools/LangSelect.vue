@@ -27,12 +27,12 @@ export default {
   name: 'LangSelect',
   // mixins: [langMixin],
   data() {
-    return {}
+    return {};
   },
   methods: {
     // SwitchLang (row) {
     //   this.setLang(row.key)
     // }
   },
-}
+};
 </script>

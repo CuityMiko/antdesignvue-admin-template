@@ -1,10 +1,10 @@
-import { axios } from '@/utils/request'
+import { axios } from '@/utils/request';
 
 const api = {
   twoStepCode: '/auth/2step-code',
   SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',
-}
+};
 
 /**
  * login func
@@ -16,7 +16,7 @@ export function login(parameter) {
     url: '/auth/login',
     method: 'post',
     data: parameter,
-  })
+  });
 }
 
 export function getSmsCaptcha(parameter) {
@@ -24,7 +24,7 @@ export function getSmsCaptcha(parameter) {
     url: api.SendSms,
     method: 'post',
     data: parameter,
-  })
+  });
 }
 
 export function getInfo(token) {
@@ -32,7 +32,7 @@ export function getInfo(token) {
     url: '/user/info',
     method: 'post',
     data: token,
-  })
+  });
 }
 
 export function getCurrentUserNav(token) {
@@ -40,7 +40,7 @@ export function getCurrentUserNav(token) {
     url: '/user/nav',
     method: 'post',
     data: token,
-  })
+  });
 }
 
 export function logout() {
@@ -50,7 +50,7 @@ export function logout() {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
     },
-  })
+  });
 }
 
 /**
@@ -62,5 +62,5 @@ export function get2step(parameter) {
     url: api.twoStepCode,
     method: 'post',
     data: parameter,
-  })
+  });
 }

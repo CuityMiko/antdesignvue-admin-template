@@ -1,5 +1,5 @@
-import { message } from 'ant-design-vue/es'
-import themeColor from './themeColor.js'
+import { message } from 'ant-design-vue/es';
+import themeColor from './themeColor.js';
 
 // let lessNodesAppended
 
@@ -36,19 +36,19 @@ const colorList = [
     key: '酱紫',
     color: '#722ED1',
   },
-]
+];
 
 const updateTheme = (newPrimaryColor) => {
-  const hideMessage = message.loading('正在应用主题！', 0)
+  const hideMessage = message.loading('正在应用主题！', 0);
   themeColor.changeColor(newPrimaryColor).finally(() => {
     setTimeout(() => {
-      hideMessage()
-    }, 10)
-  })
-}
+      hideMessage();
+    }, 10);
+  });
+};
 
 const updateColorWeak = (colorWeak) => {
-  const app = document.body.querySelector('#app')
-  colorWeak ? app.classList.add('colorWeak') : app.classList.remove('colorWeak')
-}
-export { updateTheme, colorList, updateColorWeak }
+  const app = document.body.querySelector('#app');
+  colorWeak ? app.classList.add('colorWeak') : app.classList.remove('colorWeak');
+};
+export { updateTheme, colorList, updateColorWeak };

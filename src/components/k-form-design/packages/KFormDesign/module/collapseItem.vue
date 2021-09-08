@@ -13,16 +13,11 @@
       group: { name: 'form-draggable', pull: 'clone', put: false },
       sort: false,
       animation: 180,
-      ghostClass: 'moving'
+      ghostClass: 'moving',
     }"
     @start="handleStart($event, list)"
   >
-    <li
-      v-for="(val, index) in list"
-      :key="index"
-      @dragstart="$emit('generateKey', list, index)"
-      @click="$emit('handleListPush', val)"
-    >
+    <li v-for="(val, index) in list" :key="index" @dragstart="$emit('generateKey', list, index)" @click="$emit('handleListPush', val)">
       <svg v-if="val.icon" class="icon" aria-hidden="true">
         <use :xlink:href="`#${val.icon}`"></use>
       </svg>
@@ -31,17 +26,17 @@
   </draggable>
 </template>
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable';
 export default {
-  name: "collapseItem",
-  props: ["list"],
+  name: 'collapseItem',
+  props: ['list'],
   components: {
-    draggable
+    draggable,
   },
   methods: {
     handleStart(e, list) {
-      this.$emit("start", list[e.oldIndex].type);
-    }
-  }
+      this.$emit('start', list[e.oldIndex].type);
+    },
+  },
 };
 </script>

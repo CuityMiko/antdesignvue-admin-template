@@ -6,7 +6,7 @@
     @cancel="handleCancel"
     :destroyOnClose="true"
     wrapClassName="code-modal-9136076486841527"
-    style="top:20px;"
+    style="top: 20px"
     width="850px"
   >
     <previewCode :editorJson="editorJson" />
@@ -18,30 +18,30 @@
  * date 2019-11-20
  * description 生成json Modal
  */
-import previewCode from "../../PreviewCode/index";
+import previewCode from '../../PreviewCode/index';
 export default {
-  name: "JsonModal",
+  name: 'JsonModal',
   data() {
     return {
       visible: false,
-      editorJson: "",
-      jsonData: {}
+      editorJson: '',
+      jsonData: {},
     };
   },
   watch: {
     visible(val) {
       if (val) {
-        this.editorJson = JSON.stringify(this.jsonData, null, "\t");
+        this.editorJson = JSON.stringify(this.jsonData, null, '\t');
       }
-    }
+    },
   },
   components: {
-    previewCode
+    previewCode,
   },
   methods: {
     handleCancel() {
       this.visible = false;
-    }
-  }
+    },
+  },
 };
 </script>

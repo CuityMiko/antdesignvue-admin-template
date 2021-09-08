@@ -23,7 +23,7 @@
         'uploadImg',
         'uploadFile',
         'cascader',
-        'treeSelect'
+        'treeSelect',
       ].includes(record.type)
     "
     :label-col="
@@ -34,27 +34,15 @@
         : {}
     "
     :wrapper-col="
-      formConfig.layout === 'horizontal'
-        ? formConfig.labelLayout === 'flex'
-          ? { style: 'width:auto;flex:1' }
-          : formConfig.wrapperCol
-        : {}
+      formConfig.layout === 'horizontal' ? (formConfig.labelLayout === 'flex' ? { style: 'width:auto;flex:1' } : formConfig.wrapperCol) : {}
     "
-    :style="
-      formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex'
-        ? { display: 'flex' }
-        : {}
-    "
+    :style="formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex' ? { display: 'flex' } : {}"
   >
     <span slot="label">
       <a-tooltip>
         <span v-text="record.label"></span>
         <span v-if="record.help" slot="title" v-html="record.help"></span>
-        <a-icon
-          v-if="record.help"
-          class="question-circle"
-          type="question-circle-o"
-        />
+        <a-icon v-if="record.help" class="question-circle" type="question-circle-o" />
       </a-tooltip>
     </span>
     <!-- 多行文本 -->
@@ -63,7 +51,7 @@
       v-if="record.type === 'textarea'"
       :autoSize="{
         minRows: record.options.minRows,
-        maxRows: record.options.maxRows
+        maxRows: record.options.maxRows,
       }"
       :disabled="disabled || record.options.disabled"
       :placeholder="record.options.placeholder"
@@ -75,19 +63,15 @@
         record.model, // input 的 name
         {
           initialValue: record.options.defaultValue, // 默认值
-          rules: record.rules // 验证规则
-        }
+          rules: record.rules, // 验证规则
+        },
       ]"
     />
     <!-- 单选框 -->
     <a-radio-group
       v-else-if="record.type === 'radio'"
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :disabled="disabled || record.options.disabled"
       :placeholder="record.options.placeholder"
@@ -96,19 +80,15 @@
         record.model,
         {
           initialValue: record.options.defaultValue,
-          rules: record.rules
-        }
+          rules: record.rules,
+        },
       ]"
     />
     <!-- 多选框 -->
     <a-checkbox-group
       v-else-if="record.type === 'checkbox'"
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :disabled="disabled || record.options.disabled"
       :placeholder="record.options.placeholder"
@@ -117,8 +97,8 @@
         record.model,
         {
           initialValue: record.options.defaultValue,
-          rules: record.rules
-        }
+          rules: record.rules,
+        },
       ]"
     />
     <!-- 开关 -->
@@ -131,16 +111,12 @@
         {
           initialValue: record.options.defaultValue,
           valuePropName: 'checked',
-          rules: record.rules
-        }
+          rules: record.rules,
+        },
       ]"
     />
     <!-- 滑块 -->
-    <div
-      v-else-if="record.type === 'slider'"
-      :style="`width:${record.options.width}`"
-      class="slider-box"
-    >
+    <div v-else-if="record.type === 'slider'" :style="`width:${record.options.width}`" class="slider-box">
       <div class="slider">
         <a-slider
           :disabled="disabled || record.options.disabled"
@@ -152,8 +128,8 @@
             record.model,
             {
               initialValue: record.options.defaultValue,
-              rules: record.rules
-            }
+              rules: record.rules,
+            },
           ]"
         />
       </div>
@@ -172,17 +148,14 @@
               rules: [
                 {
                   validator: (rule, value, callback) => {
-                    if (
-                      record.options.step &&
-                      value % record.options.step !== 0
-                    ) {
+                    if (record.options.step && value % record.options.step !== 0) {
                       callback('输入值必须是步长的倍数');
                     }
                     callback();
-                  }
-                }
-              ]
-            }
+                  },
+                },
+              ],
+            },
           ]"
         />
       </div>
@@ -191,22 +164,9 @@
       v-else
       :style="`width:${record.options.width}`"
       v-bind="componentOption"
-      :min="
-        record.options.min || record.options.min === 0
-          ? record.options.min
-          : -Infinity
-      "
-      :max="
-        record.options.max || record.options.max === 0
-          ? record.options.max
-          : Infinity
-      "
-      :precision="
-        record.options.precision > 50 ||
-        (!record.options.precision && record.options.precision !== 0)
-          ? null
-          : record.options.precision
-      "
+      :min="record.options.min || record.options.min === 0 ? record.options.min : -Infinity"
+      :max="record.options.max || record.options.max === 0 ? record.options.max : Infinity"
+      :precision="record.options.precision > 50 || (!record.options.precision && record.options.precision !== 0) ? null : record.options.precision"
       :parentDisabled="disabled || record.options.disabled"
       :disabled="disabled || record.options.disabled"
       :record="record"
@@ -214,29 +174,17 @@
       :filterOption="
         record.options.showSearch
           ? (inputValue, option) => {
-              return (
-                option.componentOptions.children[0].text
-                  .toLowerCase()
-                  .indexOf(inputValue.toLowerCase()) >= 0
-              );
+              return option.componentOptions.children[0].text.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0;
             }
           : false
       "
       :allowClear="record.options.clearable"
       :dynamicData="dynamicData"
       :treeData="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :mode="record.options.multiple ? 'multiple' : ''"
       @change="handleChange($event, record.model)"
@@ -244,8 +192,8 @@
         record.model, // input 的 name
         {
           initialValue: record.options.defaultValue, // 默认值
-          rules: record.rules // 验证规则
-        }
+          rules: record.rules, // 验证规则
+        },
       ]"
       :is="componentItem"
     ></component>
@@ -268,13 +216,7 @@
           : formConfig.wrapperCol
         : {}
     "
-    :style="
-      formConfig.layout === 'horizontal' &&
-      formConfig.labelLayout === 'flex' &&
-      record.options.showLabel
-        ? { display: 'flex' }
-        : {}
-    "
+    :style="formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex' && record.options.showLabel ? { display: 'flex' } : {}"
   >
     <component
       :ref="['batch', 'selectInputList'].includes(record.type) && 'KBatch'"
@@ -290,8 +232,8 @@
         record.model, // input 的 name
         {
           initialValue: record.options.defaultValue, // 默认值
-          rules: record.rules // 验证规则
-        }
+          rules: record.rules, // 验证规则
+        },
       ]"
       :is="componentItem"
     ></component>
@@ -334,17 +276,14 @@
         :style="{
           fontFamily: record.options.fontFamily,
           fontSize: record.options.fontSize,
-          color: record.options.color
+          color: record.options.color,
         }"
         v-text="record.label"
       ></label>
     </div>
   </a-form-item>
   <!-- html -->
-  <div
-    v-else-if="record.type === 'html'"
-    v-html="record.options.defaultValue"
-  ></div>
+  <div v-else-if="record.type === 'html'" v-html="record.options.defaultValue"></div>
 
   <!-- 自定义组件 -->
   <customComponent
@@ -358,18 +297,10 @@
 
   <div v-else>
     <!-- 分割线 -->
-    <a-divider
-      v-if="
-        record.type === 'divider' &&
-          record.label !== '' &&
-          record.options.orientation
-      "
-      :orientation="record.options.orientation"
-      >{{ record.label }}</a-divider
-    >
-    <a-divider v-else-if="record.type === 'divider' && record.label !== ''">{{
+    <a-divider v-if="record.type === 'divider' && record.label !== '' && record.options.orientation" :orientation="record.options.orientation">{{
       record.label
     }}</a-divider>
+    <a-divider v-else-if="record.type === 'divider' && record.label !== ''">{{ record.label }}</a-divider>
     <a-divider v-else-if="record.type === 'divider' && record.label === ''" />
   </div>
 </template>
@@ -379,43 +310,43 @@
  * date 2019-11-20
  */
 // import moment from "moment";
-import customComponent from "./customComponent";
-import ComponentArray from "../core/components_use";
-const _ = require("lodash/object");
+import customComponent from './customComponent';
+import ComponentArray from '../core/components_use';
+const _ = require('lodash/object');
 
 export default {
-  name: "KFormItem",
+  name: 'KFormItem',
   props: {
     // 表单数组
     record: {
       type: Object,
-      required: true
+      required: true,
     },
     // form-item 宽度配置
     formConfig: {
       type: Object,
-      required: true
+      required: true,
     },
     config: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     dynamicData: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
-    customComponent
+    customComponent,
   },
   computed: {
     customList() {
       if (window.$customComponentList) {
-        return window.$customComponentList.map(item => item.type);
+        return window.$customComponentList.map((item) => item.type);
       } else {
         return [];
       }
@@ -430,8 +361,8 @@ export default {
       return ComponentArray[this.record.type];
     },
     componentOption() {
-      return _.omit(this.record.options, ["defaultValue", "disabled"]);
-    }
+      return _.omit(this.record.options, ['defaultValue', 'disabled']);
+    },
   },
   methods: {
     validationSubform() {
@@ -445,9 +376,9 @@ export default {
         value = e.target.value;
       }
       // 传递change事件
-      this.$emit("change", value, key);
-    }
-  }
+      this.$emit('change', value, key);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

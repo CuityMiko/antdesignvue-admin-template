@@ -6,28 +6,20 @@
  * @LastEditTime: 2021-05-14 14:04:14
  -->
 <template>
-  <a-form-model
-    ref="dynamicValidateForm"
-    layout="inline"
-    :model="dynamicValidateForm"
-  >
+  <a-form-model ref="dynamicValidateForm" layout="inline" :model="dynamicValidateForm">
     <a-table
       class="batch-table"
       :pagination="false"
-      :rowKey="record => record.key"
+      :rowKey="(record) => record.key"
       :columns="columns"
       :dataSource="dynamicValidateForm.domains"
       bordered
       :scroll="{
         x: listLength * 190 + 80 + (!record.options.hideSequence ? 60 : 0),
-        y: record.options.scrollY
+        y: record.options.scrollY,
       }"
     >
-      <template
-        v-for="item in record.list"
-        :slot="item.key"
-        slot-scope="text, record, index"
-      >
+      <template v-for="item in record.list" :slot="item.key" slot-scope="text, record, index">
         <KFormModelItem
           :key="item.key + '1'"
           :record="item"
@@ -41,36 +33,22 @@
         />
       </template>
       <template slot="dynamic-opr-button" slot-scope="text, record">
-        <a-icon
-          title="删除改行"
-          v-if="!disabled"
-          class="dynamic-opr-button"
-          type="minus-circle-o"
-          @click="removeDomain(record)"
-        />
-        <a-icon
-          title="复制添加"
-          v-if="!disabled"
-          type="copy-o"
-          class="dynamic-opr-button"
-          @click="copyDomain(record)"
-        />
+        <a-icon title="删除改行" v-if="!disabled" class="dynamic-opr-button" type="minus-circle-o" @click="removeDomain(record)" />
+        <a-icon title="复制添加" v-if="!disabled" type="copy-o" class="dynamic-opr-button" @click="copyDomain(record)" />
       </template>
     </a-table>
-    <a-button type="dashed" :disabled="disabled" @click="addDomain">
-      <a-icon type="plus" />增加
-    </a-button>
+    <a-button type="dashed" :disabled="disabled" @click="addDomain"> <a-icon type="plus" />增加 </a-button>
   </a-form-model>
 </template>
 
 <script>
-import KFormModelItem from "./module/KFormModelItem";
+import KFormModelItem from './module/KFormModelItem';
 export default {
-  name: "KBatch",
-  props: ["record", "value", "dynamicData", "config", "parentDisabled"],
+  name: 'KBatch',
+  props: ['record', 'value', 'dynamicData', 'config', 'parentDisabled'],
 
   components: {
-    KFormModelItem
+    KFormModelItem,
   },
   watch: {
     value: {
@@ -79,66 +57,66 @@ export default {
         this.dynamicValidateForm.domains = val || [];
       },
       immediate: true,
-      deep: true
-    }
+      deep: true,
+    },
   },
   data() {
     return {
       dynamicValidateForm: {
-        domains: []
-      }
+        domains: [],
+      },
     };
   },
   computed: {
     listLength() {
-      return this.record.list.filter(item => !item.options.hidden).length;
+      return this.record.list.filter((item) => !item.options.hidden).length;
     },
     columns() {
       const columns = [];
       if (!this.record.options.hideSequence) {
         columns.push({
-          title: "序号",
-          dataIndex: "sequence_index_number",
-          width: "60px",
-          align: "center",
+          title: '序号',
+          dataIndex: 'sequence_index_number',
+          width: '60px',
+          align: 'center',
           customRender: (text, record, index) => {
             return index + 1;
-          }
+          },
         });
       }
 
       columns.push(
         ...this.record.list
-          .filter(item => !item.options.hidden)
+          .filter((item) => !item.options.hidden)
           .map((item, index) => {
             return {
               title: item.label,
               dataIndex: item.key,
-              width: index === this.record.list.length - 1 ? "" : "190px",
-              scopedSlots: { customRender: item.key }
+              width: index === this.record.list.length - 1 ? '' : '190px',
+              scopedSlots: { customRender: item.key },
             };
           })
       );
 
       columns.push({
-        title: "操作",
-        dataIndex: "dynamic-opr-button",
-        fixed: "right",
-        width: "80px",
-        align: "center",
-        scopedSlots: { customRender: "dynamic-opr-button" }
+        title: '操作',
+        dataIndex: 'dynamic-opr-button',
+        fixed: 'right',
+        width: '80px',
+        align: 'center',
+        scopedSlots: { customRender: 'dynamic-opr-button' },
       });
 
       return columns;
     },
     disabled() {
       return this.record.options.disabled || this.parentDisabled;
-    }
+    },
   },
   methods: {
     validationSubform() {
       let verification;
-      this.$refs.dynamicValidateForm.validate(valid => {
+      this.$refs.dynamicValidateForm.validate((valid) => {
         verification = valid;
       });
       return verification;
@@ -154,31 +132,31 @@ export default {
     },
     copyDomain(record) {
       const data = {};
-      this.record.list.forEach(item => {
+      this.record.list.forEach((item) => {
         data[item.model] = record[item.model];
       });
       this.dynamicValidateForm.domains.push({
         ...data,
-        key: Date.now()
+        key: Date.now(),
       });
       this.handleInput();
     },
     addDomain() {
       const data = {};
-      this.record.list.forEach(item => {
+      this.record.list.forEach((item) => {
         data[item.model] = item.options.defaultValue;
       });
 
       this.dynamicValidateForm.domains.push({
         ...data,
-        key: Date.now()
+        key: Date.now(),
       });
       this.handleInput();
     },
     handleInput() {
-      this.$emit("change", this.dynamicValidateForm.domains);
-    }
-  }
+      this.$emit('change', this.dynamicValidateForm.domains);
+    },
+  },
 };
 </script>
 <style scoped>

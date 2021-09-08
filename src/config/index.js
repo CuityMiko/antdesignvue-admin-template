@@ -10,4 +10,4 @@ module.exports = {
     name: 'ls', // 用 Vue.name.xx(get/set/remove/clear)
     storage: 'local', // session, local, memory
   },
-}
+};

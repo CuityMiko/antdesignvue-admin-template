@@ -12,11 +12,11 @@
     :visible="visible"
     @cancel="handleCancel"
     wrapClassName="code-modal-9136076486841527"
-    style="top:20px;"
+    style="top: 20px"
     width="850px"
     :destroyOnClose="true"
   >
-    <a-tabs tabPosition="left" style="height:100%">
+    <a-tabs tabPosition="left" style="height: 100%">
       <a-tab-pane tab="VUE" key="1">
         <!-- vue code start -->
         <previewCode :editorJson="editorVueJson" fileFormat="vue" />
@@ -129,35 +129,33 @@ let codeHtmlFront = `<!DOCTYPE html>
 
 </html>`
 /* eslint-enable */
-import previewCode from "../../PreviewCode/index";
+import previewCode from '../../PreviewCode/index';
 export default {
-  name: "CodeModal",
+  name: 'CodeModal',
   data() {
     return {
       visible: false,
-      editorVueJson: "",
-      editorHtmlJson: "",
-      jsonData: {}
+      editorVueJson: '',
+      editorHtmlJson: '',
+      jsonData: {},
     };
   },
   watch: {
     visible(val) {
       if (val) {
-        this.editorVueJson =
-          codeVueFront + JSON.stringify(this.jsonData) + codeVueLast;
+        this.editorVueJson = codeVueFront + JSON.stringify(this.jsonData) + codeVueLast;
 
-        this.editorHtmlJson =
-          codeHtmlFront + JSON.stringify(this.jsonData) + codeHtmlLast;
+        this.editorHtmlJson = codeHtmlFront + JSON.stringify(this.jsonData) + codeHtmlLast;
       }
-    }
+    },
   },
   components: {
-    previewCode
+    previewCode,
   },
   methods: {
     handleCancel() {
       this.visible = false;
-    }
-  }
+    },
+  },
 };
 </script>

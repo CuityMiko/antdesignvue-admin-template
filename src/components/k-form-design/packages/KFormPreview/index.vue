@@ -6,7 +6,7 @@
     @cancel="handleCancel"
     okText="获取数据"
     cancelText="关闭"
-    style="top:20px;"
+    style="top: 20px"
     :destroyOnClose="true"
     :width="`${previewWidth}px`"
   >
@@ -19,43 +19,43 @@
  * author kcz
  * date 2019-11-20
  */
-import jsonModel from "../KFormDesign/module/jsonModal";
+import jsonModel from '../KFormDesign/module/jsonModal';
 export default {
-  name: "KFormPreview",
+  name: 'KFormPreview',
   data() {
     return {
       visible: false,
       previewWidth: 850,
-      jsonData: {}
+      jsonData: {},
     };
   },
   components: {
-    jsonModel
+    jsonModel,
   },
   methods: {
     handleSubmit(p) {
-      p.then(res => {
-        console.log(res, "获取数据成功");
+      p.then((res) => {
+        console.log(res, '获取数据成功');
         this.$refs.jsonModel.jsonData = res;
         this.$refs.jsonModel.visible = true;
-      }).catch(err => {
-        console.error(err, "获取数据失败");
+      }).catch((err) => {
+        console.error(err, '获取数据失败');
       });
     },
     handleGetData() {
       this.$refs.KFormBuild.getData()
-        .then(res => {
-          console.log(res, "获取数据成功");
+        .then((res) => {
+          console.log(res, '获取数据成功');
           this.$refs.jsonModel.jsonData = res;
           this.$refs.jsonModel.visible = true;
         })
-        .catch(err => {
-          console.log(err, "获取数据失败");
+        .catch((err) => {
+          console.log(err, '获取数据失败');
         });
     },
     handleCancel() {
       this.visible = false;
-    }
-  }
+    },
+  },
 };
 </script>

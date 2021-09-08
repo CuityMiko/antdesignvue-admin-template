@@ -7,8 +7,8 @@
  */
 
 // 导入ant组件
-import "./core/components_use";
-import * as all from "./mini";
+import './core/components_use';
+import * as all from './mini';
 
 export default all.default;
 export const setFormDesignConfig = all.setFormDesignConfig;

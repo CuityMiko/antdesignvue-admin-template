@@ -19,17 +19,17 @@
 export default {
   name: 'FormList',
   data() {
-    return {}
+    return {};
   },
   components: {},
   watch: {},
   mounted() {},
   methods: {
     handleGo(type) {
-      this.$router.push({ path: `/form/${type}` })
+      this.$router.push({ path: `/form/${type}` });
     },
   },
-}
+};
 </script>
 
 <style scoped lang="less">

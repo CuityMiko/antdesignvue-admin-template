@@ -1,4 +1,4 @@
-import { SET_MULTI_TAB, ADD_EXCLUDE_VIEW, DEL_EXCLUDE_VIEW } from '../mutation-types'
+import { SET_MULTI_TAB, ADD_EXCLUDE_VIEW, DEL_EXCLUDE_VIEW } from '../mutation-types';
 
 const multiTab = {
   state: {
@@ -7,30 +7,30 @@ const multiTab = {
   },
   mutations: {
     [SET_MULTI_TAB](state, tabList) {
-      state.tabList = []
-      state.tabList = tabList
+      state.tabList = [];
+      state.tabList = tabList;
     },
     [ADD_EXCLUDE_VIEW]: (state, view) => {
-      if (state.excludeViews.includes(view.name)) return
+      if (state.excludeViews.includes(view.name)) return;
       if (!view.meta.Cache) {
-        state.excludeViews.push(view.name)
+        state.excludeViews.push(view.name);
       }
     },
     [DEL_EXCLUDE_VIEW]: (state, view) => {
-      const index = state.excludeViews.indexOf(view.name)
-      index > -1 && state.excludeViews.splice(index, 1)
+      const index = state.excludeViews.indexOf(view.name);
+      index > -1 && state.excludeViews.splice(index, 1);
     },
   },
   actions: {
     addNoCachedView({ commit }, view) {
-      commit('ADD_EXCLUDE_VIEW', view)
+      commit('ADD_EXCLUDE_VIEW', view);
     },
     delNoCachedView({ commit, state }, view) {
       return new Promise((resolve) => {
-        commit('DEL_EXCLUDE_VIEW', view)
-        resolve([...state.excludeViews])
-      })
+        commit('DEL_EXCLUDE_VIEW', view);
+        resolve([...state.excludeViews]);
+      });
     },
   },
-}
-export default multiTab
+};
+export default multiTab;

@@ -11,12 +11,7 @@
     :animated="record.options.animated"
     v-model="activeKey"
   >
-    <a-tab-pane
-      v-for="(tabItem, index) in record.columns"
-      :key="index"
-      :tab="tabItem.label"
-      :forceRender="true"
-    >
+    <a-tab-pane v-for="(tabItem, index) in record.columns" :key="index" :tab="tabItem.label" :forceRender="true">
       <buildBlocks
         ref="nestedComponents"
         @handleReset="$emit('handleReset')"
@@ -32,17 +27,8 @@
     </a-tab-pane>
   </a-tabs>
   <!-- 栅格布局 -->
-  <a-row
-    v-else-if="record.type === 'grid'"
-    class="grid-row"
-    :gutter="record.options.gutter"
-  >
-    <a-col
-      class="grid-col"
-      v-for="(colItem, idnex) in record.columns"
-      :key="idnex"
-      :span="colItem.span || 0"
-    >
+  <a-row v-else-if="record.type === 'grid'" class="grid-row" :gutter="record.options.gutter">
+    <a-col class="grid-col" v-for="(colItem, idnex) in record.columns" :key="idnex" :span="colItem.span || 0">
       <buildBlocks
         ref="nestedComponents"
         @handleReset="$emit('handleReset')"
@@ -58,11 +44,7 @@
     </a-col>
   </a-row>
   <!-- 卡片布局 -->
-  <a-card
-    v-else-if="record.type === 'card'"
-    class="grid-row"
-    :title="record.label"
-  >
+  <a-card v-else-if="record.type === 'card'" class="grid-row" :title="record.label">
     <buildBlocks
       ref="nestedComponents"
       @handleReset="$emit('handleReset')"
@@ -83,16 +65,14 @@
     :class="{
       bright: record.options.bright,
       small: record.options.small,
-      bordered: record.options.bordered
+      bordered: record.options.bordered,
     }"
     :style="record.options.customStyle"
   >
     <tr v-for="(trItem, trIndex) in record.trs" :key="trIndex">
       <td
         class="table-td"
-        v-for="(tdItem, tdIndex) in trItem.tds.filter(
-          item => item.colspan && item.rowspan
-        )"
+        v-for="(tdItem, tdIndex) in trItem.tds.filter((item) => item.colspan && item.rowspan)"
         :key="tdIndex"
         :colspan="tdItem.colspan"
         :rowspan="tdItem.rowspan"
@@ -131,66 +111,63 @@
  * author kcz
  * date 2019-11-20
  */
-import KFormItem from "../KFormItem/index";
+import KFormItem from '../KFormItem/index';
 export default {
-  name: "buildBlocks",
+  name: 'buildBlocks',
   props: {
     record: {
       type: Object,
-      required: true
+      required: true,
     },
     formConfig: {
       type: Object,
-      required: true
+      required: true,
     },
     config: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     dynamicData: {
       type: Object,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     validatorError: {
       type: [Object, null],
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   components: {
-    KFormItem
+    KFormItem,
   },
   data() {
     return {
-      activeKey: 0
+      activeKey: 0,
     };
   },
   methods: {
     validationSubform() {
       // 验证动态表格
       const nestedComponents = this.$refs.nestedComponents;
-      if (
-        typeof nestedComponents === "object" &&
-        nestedComponents instanceof Array
-      ) {
+      if (typeof nestedComponents === 'object' && nestedComponents instanceof Array) {
         for (let i = 0; nestedComponents.length > i; i++) {
           if (!nestedComponents[i].validationSubform()) {
             return false;
           }
         }
         return true;
-      } else if (typeof nestedComponents !== "undefined") {
+      } else if (typeof nestedComponents !== 'undefined') {
         return nestedComponents.validationSubform();
       } else {
         return true;
       }
     },
     handleChange(value, key) {
-      this.$emit("change", value, key);
-    }
+      this.$emit('change', value, key);
+    },
   },
   watch: {
     /**
@@ -199,22 +176,20 @@ export default {
      */
     validatorError: {
       deep: true,
-      handler: function(n) {
+      handler: function (n) {
         const errorItems = Object.keys(n);
         if (errorItems.length) {
           if (!this.record.columns) return false;
           for (let i = 0; i < this.record.columns.length; i++) {
-            const err = this.record.columns[i].list.filter(item =>
-              errorItems.includes(item.model)
-            );
+            const err = this.record.columns[i].list.filter((item) => errorItems.includes(item.model));
             if (err.length) {
               this.activeKey = i;
               break;
             }
           }
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

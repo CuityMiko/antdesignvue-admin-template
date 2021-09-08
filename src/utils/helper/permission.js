@@ -8,34 +8,34 @@ const PERMISSION_ENUM = {
   disable: { key: 'disable', label: '禁用' },
   import: { key: 'import', label: '导入' },
   export: { key: 'export', label: '导出' },
-}
+};
 
 function plugin(Vue) {
   if (plugin.installed) {
-    return
+    return;
   }
 
   !Vue.prototype.$auth &&
     Object.defineProperties(Vue.prototype, {
       $auth: {
         get() {
-          const _this = this
+          const _this = this;
           return (permissions) => {
-            const [permission, action] = permissions.split('.')
-            const permissionList = _this.$store.getters.roles.permissions
+            const [permission, action] = permissions.split('.');
+            const permissionList = _this.$store.getters.roles.permissions;
             return (
               permissionList
                 .find((val) => {
-                  return val.permissionId === permission
+                  return val.permissionId === permission;
                 })
                 .actionList.findIndex((val) => {
-                  return val === action
+                  return val === action;
                 }) > -1
-            )
-          }
+            );
+          };
         },
       },
-    })
+    });
 
   !Vue.prototype.$enum &&
     Object.defineProperties(Vue.prototype, {
@@ -43,16 +43,16 @@ function plugin(Vue) {
         get() {
           // const _this = this;
           return (val) => {
-            let result = PERMISSION_ENUM
+            let result = PERMISSION_ENUM;
             val &&
               val.split('.').forEach((v) => {
-                result = (result && result[v]) || null
-              })
-            return result
-          }
+                result = (result && result[v]) || null;
+              });
+            return result;
+          };
         },
       },
-    })
+    });
 }
 
-export default plugin
+export default plugin;

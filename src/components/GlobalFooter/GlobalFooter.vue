@@ -16,9 +16,9 @@
 export default {
   name: 'GlobalFooter',
   data() {
-    return {}
+    return {};
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

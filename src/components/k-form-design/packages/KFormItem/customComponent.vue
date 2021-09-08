@@ -16,17 +16,9 @@
         : {}
     "
     :wrapper-col="
-      formConfig.layout === 'horizontal'
-        ? formConfig.labelLayout === 'flex'
-          ? { style: 'width:auto;flex:1' }
-          : formConfig.wrapperCol
-        : {}
+      formConfig.layout === 'horizontal' ? (formConfig.labelLayout === 'flex' ? { style: 'width:auto;flex:1' } : formConfig.wrapperCol) : {}
     "
-    :style="
-      formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex'
-        ? { display: 'flex' }
-        : {}
-    "
+    :style="formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex' ? { display: 'flex' } : {}"
   >
     <component
       :record="record"
@@ -34,17 +26,13 @@
       @change="handleChange"
       :disabled="disabled"
       :dynamicData="dynamicData"
-      :height="
-        typeof record.options.height !== 'undefined'
-          ? record.options.height
-          : ''
-      "
+      :height="typeof record.options.height !== 'undefined' ? record.options.height : ''"
       v-decorator="[
         record.model,
         {
           initialValue: record.options.defaultValue,
-          rules: record.rules
-        }
+          rules: record.rules,
+        },
       ]"
       :is="customComponent"
     ></component>
@@ -52,25 +40,25 @@
 </template>
 <script>
 export default {
-  name: "customComponent",
-  props: ["record", "formConfig", "disabled", "dynamicData"],
+  name: 'customComponent',
+  props: ['record', 'formConfig', 'disabled', 'dynamicData'],
   computed: {
     customComponent() {
       // 计算需要显示的组件
       const customComponentList = {};
       if (window.$customComponentList) {
         // 将数组映射成json
-        window.$customComponentList.forEach(item => {
+        window.$customComponentList.forEach((item) => {
           customComponentList[item.type] = item.component;
         });
       }
       return customComponentList[this.record.type];
-    }
+    },
   },
   methods: {
     handleChange(value, key) {
-      this.$emit("change", value, key);
-    }
-  }
+      this.$emit('change', value, key);
+    },
+  },
 };
 </script>

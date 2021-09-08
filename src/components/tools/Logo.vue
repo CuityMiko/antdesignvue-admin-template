@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import LogoSvg from '@/assets/logo.svg?inline'
-import { defaultRootRoutePath } from '@/router/router.config'
+import LogoSvg from '@/assets/logo.svg?inline';
+import { defaultRootRoutePath } from '@/router/router.config';
 export default {
   name: 'Logo',
   components: {
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       defaultRootRoutePath,
-    }
+    };
   },
   props: {
     title: {
@@ -32,5 +32,5 @@ export default {
       required: false,
     },
   },
-}
+};
 </script>

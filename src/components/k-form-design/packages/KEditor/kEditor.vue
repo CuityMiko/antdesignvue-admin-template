@@ -21,29 +21,29 @@
   </quillEditor>
 </template>
 <script>
-import { quillEditor } from "vue-quill-editor"; //调用编辑器
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
+import { quillEditor } from 'vue-quill-editor'; //调用编辑器
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 export default {
-  name: "editor",
-  props: ["value", "record", "parentDisabled"],
+  name: 'editor',
+  props: ['value', 'record', 'parentDisabled'],
   components: { quillEditor },
   data() {
     return {
       editorOption: {
-        placeholder: this.record.options.placeholder
-      }
+        placeholder: this.record.options.placeholder,
+      },
     };
   },
   methods: {
     onEditorBlur() {}, // 失去焦点事件
     onEditorFocus() {}, // 获得焦点事件
     onEditorChange(e) {
-      this.$emit("change", e.html);
-    }
-  }
+      this.$emit('change', e.html);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

@@ -23,7 +23,7 @@
         'uploadImg',
         'uploadFile',
         'cascader',
-        'treeSelect'
+        'treeSelect',
       ].includes(record.type)
     "
     :prop="`domains.${index}.${record.model}`"
@@ -35,7 +35,7 @@
       v-if="record.type === 'textarea'"
       :autoSize="{
         minRows: record.options.minRows,
-        maxRows: record.options.maxRows
+        maxRows: record.options.maxRows,
       }"
       :disabled="record.options.disabled || parentDisabled"
       :placeholder="record.options.placeholder"
@@ -50,11 +50,7 @@
     <a-radio-group
       v-else-if="record.type === 'radio'"
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :disabled="record.options.disabled || parentDisabled"
       :placeholder="record.options.placeholder"
@@ -67,11 +63,7 @@
     <a-checkbox-group
       v-else-if="record.type === 'checkbox'"
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :disabled="record.options.disabled || parentDisabled"
       :placeholder="record.options.placeholder"
@@ -80,11 +72,7 @@
     />
 
     <!-- 滑块 -->
-    <div
-      v-else-if="record.type === 'slider'"
-      :style="`width:${record.options.width}`"
-      class="slider-box"
-    >
+    <div v-else-if="record.type === 'slider'" :style="`width:${record.options.width}`" class="slider-box">
       <div class="slider">
         <a-slider
           :disabled="record.options.disabled || parentDisabled"
@@ -97,7 +85,7 @@
       </div>
       <div class="number" v-if="record.options.showInput">
         <a-input-number
-          style="width:100%"
+          style="width: 100%"
           :disabled="record.options.disabled || parentDisabled"
           :min="record.options.min"
           :max="record.options.max"
@@ -112,23 +100,10 @@
       v-else
       :style="`width:${record.options.width}`"
       v-bind="componentOption"
-      :min="
-        record.options.min || record.options.min === 0
-          ? record.options.min
-          : -Infinity
-      "
-      :max="
-        record.options.max || record.options.max === 0
-          ? record.options.max
-          : Infinity
-      "
+      :min="record.options.min || record.options.min === 0 ? record.options.min : -Infinity"
+      :max="record.options.max || record.options.max === 0 ? record.options.max : Infinity"
       :count="record.options.max"
-      :precision="
-        record.options.precision > 50 ||
-        (!record.options.precision && record.options.precision !== 0)
-          ? null
-          : record.options.precision
-      "
+      :precision="record.options.precision > 50 || (!record.options.precision && record.options.precision !== 0) ? null : record.options.precision"
       :record="record"
       :config="config"
       :disabled="record.options.disabled || parentDisabled"
@@ -138,27 +113,15 @@
       :filterOption="
         record.options.showSearch
           ? (inputValue, option) => {
-              return (
-                option.componentOptions.children[0].text
-                  .toLowerCase()
-                  .indexOf(inputValue.toLowerCase()) >= 0
-              );
+              return option.componentOptions.children[0].text.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0;
             }
           : false
       "
       :treeData="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :options="
-        !record.options.dynamic
-          ? record.options.options
-          : dynamicData[record.options.dynamicKey]
-          ? dynamicData[record.options.dynamicKey]
-          : []
+        !record.options.dynamic ? record.options.options : dynamicData[record.options.dynamicKey] ? dynamicData[record.options.dynamicKey] : []
       "
       :mode="record.options.multiple ? 'multiple' : ''"
       :checked="value"
@@ -175,17 +138,14 @@
         :style="{
           fontFamily: record.options.fontFamily,
           fontSize: record.options.fontSize,
-          color: record.options.color
+          color: record.options.color,
         }"
         v-text="record.label"
       ></label>
     </div>
   </a-form-model-item>
   <!-- html -->
-  <div
-    v-else-if="record.type === 'html'"
-    v-html="record.options.defaultValue"
-  ></div>
+  <div v-else-if="record.type === 'html'" v-html="record.options.defaultValue"></div>
 
   <div v-else>
     <!-- 空 -->
@@ -198,37 +158,29 @@
  */
 // import moment from "moment";
 
-import UploadFile from "../../UploadFile";
-import UploadImg from "../../UploadImg";
-import KDatePicker from "../../KDatePicker";
-import KTimePicker from "../../KTimePicker";
-import ComponentArray from "../../core/components_use";
-const _ = require("lodash/object");
+import UploadFile from '../../UploadFile';
+import UploadImg from '../../UploadImg';
+import KDatePicker from '../../KDatePicker';
+import KTimePicker from '../../KTimePicker';
+import ComponentArray from '../../core/components_use';
+const _ = require('lodash/object');
 
 export default {
-  name: "KFormItem",
-  props: [
-    "record",
-    "domains",
-    "index",
-    "value",
-    "parentDisabled",
-    "dynamicData",
-    "config"
-  ],
+  name: 'KFormItem',
+  props: ['record', 'domains', 'index', 'value', 'parentDisabled', 'dynamicData', 'config'],
   components: {
     UploadImg,
     UploadFile,
     KDatePicker,
-    KTimePicker
+    KTimePicker,
   },
   computed: {
     componentItem() {
       return ComponentArray[this.record.type];
     },
     componentOption() {
-      return _.omit(this.record.options, ["defaultValue", "disabled"]);
-    }
+      return _.omit(this.record.options, ['defaultValue', 'disabled']);
+    },
   },
   methods: {
     handleChange(e) {
@@ -236,9 +188,9 @@ export default {
       if (e.target) {
         value = e.target.value;
       }
-      this.$emit("input", value);
-    }
-  }
+      this.$emit('input', value);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

@@ -8,13 +8,13 @@
 export default {
   name: 'FormCompare',
   data() {
-    return {}
+    return {};
   },
   components: {},
   watch: {},
   mounted() {},
   methods: {},
-}
+};
 </script>
 
 <style scoped lang="less">

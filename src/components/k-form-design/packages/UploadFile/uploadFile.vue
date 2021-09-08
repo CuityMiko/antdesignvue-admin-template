@@ -21,10 +21,7 @@
       :remove="remove"
       :beforeUpload="beforeUpload"
     >
-      <a-button
-        v-if="fileList.length < record.options.limit"
-        :disabled="record.options.disabled || parentDisabled"
-      >
+      <a-button v-if="fileList.length < record.options.limit" :disabled="record.options.disabled || parentDisabled">
         <a-icon type="upload" /> {{ record.options.placeholder }}
       </a-button>
     </a-upload>
@@ -57,12 +54,12 @@
  * description 上传文件组件
  */
 export default {
-  name: "KUploadFile",
+  name: 'KUploadFile',
   // eslint-disable-next-line vue/require-prop-types
-  props: ["record", "value", "config", "parentDisabled", "dynamicData"],
+  props: ['record', 'value', 'config', 'parentDisabled', 'dynamicData'],
   data() {
     return {
-      fileList: []
+      fileList: [],
     };
   },
   watch: {
@@ -74,8 +71,8 @@ export default {
         }
       },
       immediate: true,
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   computed: {
@@ -86,13 +83,13 @@ export default {
         console.error(err);
         return {};
       }
-    }
+    },
   },
   methods: {
     setFileList() {
       // 当传入value改变时，fileList也要改变
       // 如果传入的值为字符串，则转成json
-      if (typeof this.value === "string") {
+      if (typeof this.value === 'string') {
         this.fileList = JSON.parse(this.value);
         // 将转好的json覆盖组件默认值的字符串
         this.handleSelectChange();
@@ -102,47 +99,47 @@ export default {
     },
     handleSelectChange() {
       setTimeout(() => {
-        const arr = this.fileList.map(item => {
-          if (typeof item.response !== "undefined") {
+        const arr = this.fileList.map((item) => {
+          if (typeof item.response !== 'undefined') {
             const res = item.response;
             return {
-              type: "file",
+              type: 'file',
               name: item.name,
               status: item.status,
               uid: res.data.fileId || Date.now(),
-              url: res.data.url || ""
+              url: res.data.url || '',
             };
           } else {
             return {
-              type: "file",
+              type: 'file',
               name: item.name,
               status: item.status,
               uid: item.uid,
-              url: item.url || ""
+              url: item.url || '',
             };
           }
         });
 
-        this.$emit("change", arr);
-        this.$emit("input", arr);
+        this.$emit('change', arr);
+        this.$emit('input', arr);
       }, 10);
     },
     handlePreview(file) {
       // 下载文件
       const downloadWay = this.record.options.downloadWay;
       const dynamicFun = this.record.options.dynamicFun;
-      if (downloadWay === "a") {
+      if (downloadWay === 'a') {
         // 使用a标签下载
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = file.url || file.thumbUrl;
         a.download = file.name;
         a.click();
-      } else if (downloadWay === "ajax") {
+      } else if (downloadWay === 'ajax') {
         // 使用ajax获取文件blob，并保持到本地
-        this.getBlob(file.url || file.thumbUrl).then(blob => {
+        this.getBlob(file.url || file.thumbUrl).then((blob) => {
           this.saveAs(blob, file.name);
         });
-      } else if (downloadWay === "dynamic") {
+      } else if (downloadWay === 'dynamic') {
         // 触发动态函数
         this.dynamicData[dynamicFun](file);
       }
@@ -152,11 +149,11 @@ export default {
      * url 目标文件地址
      */
     getBlob(url) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.open("GET", url, true);
-        xhr.responseType = "blob";
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
         xhr.onload = () => {
           if (xhr.status === 200) {
             resolve(xhr.response);
@@ -174,13 +171,13 @@ export default {
       if (window.navigator.msSaveOrOpenBlob) {
         navigator.msSaveBlob(blob, filename);
       } else {
-        const link = document.createElement("a");
-        const body = document.querySelector("body");
+        const link = document.createElement('a');
+        const body = document.querySelector('body');
         link.href = window.URL.createObjectURL(blob);
         link.download = filename;
 
         // fix Firefox
-        link.style.display = "none";
+        link.style.display = 'none';
         body.appendChild(link);
 
         link.click();
@@ -200,7 +197,7 @@ export default {
     },
     handleChange(info) {
       this.fileList = info.fileList;
-      if (info.file.status === "done") {
+      if (info.file.status === 'done') {
         const res = info.file.response;
         if (res.code === 0) {
           this.handleSelectChange();
@@ -208,10 +205,10 @@ export default {
           this.fileList.pop();
           this.$message.error(`文件上传失败`);
         }
-      } else if (info.file.status === "error") {
+      } else if (info.file.status === 'error') {
         this.$message.error(`文件上传失败`);
       }
-    }
-  }
+    },
+  },
 };
 </script>

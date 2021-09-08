@@ -13,10 +13,10 @@ export default {
   name: 'RouteLayout',
   computed: {
     excludeViews() {
-      return this.$store.state.multiTab.excludeViews
+      return this.$store.state.multiTab.excludeViews;
     },
     key() {
-      return this.$route.path
+      return this.$route.path;
     },
   },
   props: {
@@ -26,7 +26,7 @@ export default {
     },
   },
   data() {
-    return {}
+    return {};
   },
   /*   render() {
     const {
@@ -47,5 +47,5 @@ export default {
     }
     return this.keepAlive || getters.multiTab || meta.keepAlive ? inKeep : notKeep
   }, */
-}
+};
 </script>

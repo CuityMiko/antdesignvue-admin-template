@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import Logo from '@/components/tools/Logo'
-import SMenu from './index'
-import { mixin, mixinDevice } from '@/utils/mixin'
+import Logo from '@/components/tools/Logo';
+import SMenu from './index';
+import { mixin, mixinDevice } from '@/utils/mixin';
 
 export default {
   name: 'SideMenu',
@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     onSelect(obj) {
-      this.$emit('menuSelect', obj)
+      this.$emit('menuSelect', obj);
     },
   },
-}
+};
 </script>

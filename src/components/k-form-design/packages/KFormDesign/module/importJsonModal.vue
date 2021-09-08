@@ -7,23 +7,14 @@
     cancelText="关闭"
     :destroyOnClose="true"
     wrapClassName="code-modal-9136076486841527"
-    style="top:20px;"
+    style="top: 20px"
     width="850px"
   >
     <p class="hint-box">导入格式如下:</p>
     <div class="json-box-9136076486841527">
-      <codemirror
-        style="height:100%;"
-        ref="myEditor"
-        v-model="jsonFormat"
-      ></codemirror>
+      <codemirror style="height: 100%" ref="myEditor" v-model="jsonFormat"></codemirror>
     </div>
-    <a-upload
-      action="/abc"
-      :beforeUpload="beforeUpload"
-      :showUploadList="false"
-      accept="application/json"
-    >
+    <a-upload action="/abc" :beforeUpload="beforeUpload" :showUploadList="false" accept="application/json">
       <a-button type="primary"> 导入json文件 </a-button>
     </a-upload>
   </a-modal>
@@ -34,16 +25,16 @@
  * date 2019-11-20
  * description 导入json Modal
  */
-import { codemirror } from "vue-codemirror-lite";
-import jsonFormat from "../config/jsonFormat";
+import { codemirror } from 'vue-codemirror-lite';
+import jsonFormat from '../config/jsonFormat';
 export default {
-  name: "importJsonModal",
+  name: 'importJsonModal',
   data() {
     return {
       visible: false,
       jsonFormat,
       jsonData: {},
-      handleSetSelectItem: null
+      handleSetSelectItem: null,
     };
   },
   watch: {
@@ -51,16 +42,16 @@ export default {
       if (val) {
         this.jsonFormat = jsonFormat;
       }
-    }
+    },
   },
   components: {
-    codemirror
+    codemirror,
   },
   computed: {
     editor() {
       // get current editor object
       return this.$refs.myEditor.editor;
-    }
+    },
   },
   methods: {
     handleCancel() {
@@ -71,7 +62,7 @@ export default {
       const _this = this;
       const reader = new FileReader();
       reader.readAsText(e);
-      reader.onload = function() {
+      reader.onload = function () {
         _this.jsonFormat = this.result;
         _this.handleImportJson();
       };
@@ -86,15 +77,15 @@ export default {
         this.jsonData.config.layout = editorJsonData.config.layout;
         this.handleCancel();
         // 导入之后，需要清除已选择key
-        this.handleSetSelectItem({ key: "" });
+        this.handleSetSelectItem({ key: '' });
 
-        this.$message.success("导入成功");
+        this.$message.success('导入成功');
       } catch (error) {
         console.error(error);
-        this.$message.error("导入失败，数据格式不对");
+        this.$message.error('导入失败，数据格式不对');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

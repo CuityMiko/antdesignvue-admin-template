@@ -6,10 +6,7 @@
  * @LastEditTime: 2021-05-05 12:12:39
  -->
 <template>
-  <div
-    :style="{ width: record.options.width }"
-    class="upload-img-box-9136076486841527"
-  >
+  <div :style="{ width: record.options.width }" class="upload-img-box-9136076486841527">
     <a-upload
       :name="config.uploadImageName || record.options.fileName"
       :headers="config.uploadImageHeaders || record.options.headers"
@@ -26,19 +23,13 @@
       :beforeUpload="beforeUpload"
     >
       <a-button
-        v-if="
-          record.options.listType !== 'picture-card' &&
-            fileList.length < record.options.limit
-        "
+        v-if="record.options.listType !== 'picture-card' && fileList.length < record.options.limit"
         :disabled="record.options.disabled || parentDisabled"
       >
         <a-icon type="upload" /> {{ record.options.placeholder }}
       </a-button>
       <div
-        v-if="
-          record.options.listType === 'picture-card' &&
-            fileList.length < record.options.limit
-        "
+        v-if="record.options.listType === 'picture-card' && fileList.length < record.options.limit"
         :disabled="record.options.disabled || parentDisabled"
       >
         <a-icon type="plus" />
@@ -57,14 +48,14 @@
  * description 上传图片组件
  */
 export default {
-  name: "KUploadImg",
+  name: 'KUploadImg',
   // eslint-disable-next-line vue/require-prop-types
-  props: ["record", "value", "config", "parentDisabled"],
+  props: ['record', 'value', 'config', 'parentDisabled'],
   data() {
     return {
       fileList: [],
       previewVisible: false,
-      previewImageUrl: ""
+      previewImageUrl: '',
     };
   },
   watch: {
@@ -76,8 +67,8 @@ export default {
         }
       },
       immediate: true,
-      deep: true
-    }
+      deep: true,
+    },
   },
   computed: {
     optionsData() {
@@ -87,13 +78,13 @@ export default {
         console.error(err);
         return {};
       }
-    }
+    },
   },
   methods: {
     setFileList() {
       // 当传入value改变时，fileList也要改变
       // 如果传入的值为字符串，则转成json
-      if (typeof this.value === "string") {
+      if (typeof this.value === 'string') {
         this.fileList = JSON.parse(this.value);
         // 将转好的json覆盖组件默认值的字符串
         this.handleSelectChange();
@@ -103,29 +94,29 @@ export default {
     },
     handleSelectChange() {
       setTimeout(() => {
-        const arr = this.fileList.map(item => {
-          if (typeof item.response !== "undefined") {
+        const arr = this.fileList.map((item) => {
+          if (typeof item.response !== 'undefined') {
             const res = item.response;
             return {
-              type: "img",
+              type: 'img',
               name: item.name,
               status: item.status,
               uid: item.uid,
-              url: res.data.url || ""
+              url: res.data.url || '',
             };
           } else {
             return {
-              type: "img",
+              type: 'img',
               name: item.name,
               status: item.status,
               uid: item.uid,
-              url: item.url || ""
+              url: item.url || '',
             };
           }
         });
 
-        this.$emit("change", arr);
-        this.$emit("input", arr);
+        this.$emit('change', arr);
+        this.$emit('input', arr);
       }, 10);
     },
     handlePreview(file) {
@@ -149,7 +140,7 @@ export default {
     handleChange(info) {
       // 上传数据改变时
       this.fileList = info.fileList;
-      if (info.file.status === "done") {
+      if (info.file.status === 'done') {
         const res = info.file.response;
         if (res.code === 0) {
           this.handleSelectChange();
@@ -157,11 +148,11 @@ export default {
           this.fileList.pop();
           this.$message.error(`图片上传失败`);
         }
-      } else if (info.file.status === "error") {
+      } else if (info.file.status === 'error') {
         this.$message.error(`图片上传失败`);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">

@@ -158,9 +158,9 @@
 </template>
 
 <script>
-import config from '@/config/layout'
-import { updateTheme, updateColorWeak, colorList } from './settingConfig'
-import { mixin, mixinDevice } from '@/utils/mixin'
+import config from '@/config/layout';
+import { updateTheme, updateColorWeak, colorList } from './settingConfig';
+import { mixin, mixinDevice } from '@/utils/mixin';
 export default {
   components: {},
   mixins: [mixin, mixinDevice],
@@ -168,38 +168,38 @@ export default {
     return {
       visible: false,
       colorList,
-    }
+    };
   },
   watch: {},
   mounted() {
     // updateTheme(this.primaryColor)
     if (this.colorWeak !== config.colorWeak) {
-      updateColorWeak(this.colorWeak)
+      updateColorWeak(this.colorWeak);
     }
   },
   methods: {
     showDrawer() {
-      this.visible = true
+      this.visible = true;
     },
     onClose() {
-      this.visible = false
+      this.visible = false;
     },
     toggle() {
-      this.visible = !this.visible
+      this.visible = !this.visible;
     },
     onColorWeak(checked) {
-      this.$store.dispatch('ToggleWeak', checked)
-      updateColorWeak(checked)
+      this.$store.dispatch('ToggleWeak', checked);
+      updateColorWeak(checked);
     },
     onMultiTab(checked) {
       if (this.layoutMode === 'topmenu') {
-        this.$store.dispatch('ToggleMultiTab', false)
-        return
+        this.$store.dispatch('ToggleMultiTab', false);
+        return;
       }
-      this.$store.dispatch('ToggleMultiTab', checked)
+      this.$store.dispatch('ToggleMultiTab', checked);
     },
     handleMenuTheme(theme) {
-      this.$store.dispatch('ToggleTheme', theme)
+      this.$store.dispatch('ToggleTheme', theme);
     },
     doCopy() {
       const text = `
@@ -213,48 +213,48 @@ export default {
         autoHideHeader: ${this.autoHideHeader}, //  auto hide header
         colorWeak: ${this.colorWeak},
         multiTab: ${this.multiTab},
-      }`
+      }`;
       this.$copyText(text)
         .then((message) => {
-          console.log('copy', message)
-          this.$message.success('复制完毕')
+          console.log('copy', message);
+          this.$message.success('复制完毕');
         })
         .catch((err) => {
-          console.log('copy.err', err)
-          this.$message.error('复制失败')
-        })
+          console.log('copy.err', err);
+          this.$message.error('复制失败');
+        });
     },
     handleLayout(mode) {
-      this.$store.dispatch('ToggleLayoutMode', mode)
+      this.$store.dispatch('ToggleLayoutMode', mode);
       // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
-      this.handleFixSiderbar(false)
+      this.handleFixSiderbar(false);
       // 顶部菜单模式强制关闭 MultiTab
-      this.onMultiTab(false)
+      this.onMultiTab(false);
     },
     handleContentWidthChange(type) {
-      this.$store.dispatch('ToggleContentWidth', type)
+      this.$store.dispatch('ToggleContentWidth', type);
     },
     changeColor(color) {
       if (this.primaryColor !== color) {
-        this.$store.dispatch('ToggleColor', color)
-        updateTheme(color)
+        this.$store.dispatch('ToggleColor', color);
+        updateTheme(color);
       }
     },
     handleFixedHeader(fixed) {
-      this.$store.dispatch('ToggleFixedHeader', fixed)
+      this.$store.dispatch('ToggleFixedHeader', fixed);
     },
     handleFixedHeaderHidden(autoHidden) {
-      this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden)
+      this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden);
     },
     handleFixSiderbar(fixed) {
       if (this.layoutMode === 'topmenu') {
-        this.$store.dispatch('ToggleFixSiderbar', false)
-        return
+        this.$store.dispatch('ToggleFixSiderbar', false);
+        return;
       }
-      this.$store.dispatch('ToggleFixSiderbar', fixed)
+      this.$store.dispatch('ToggleFixSiderbar', fixed);
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

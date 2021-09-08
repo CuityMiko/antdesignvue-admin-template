@@ -40,7 +40,7 @@
 
 <script>
 // import NoticeIcon from '@/components/NoticeIcon'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'UserMenu',
@@ -60,18 +60,18 @@ export default {
           return this.Logout({})
             .then(() => {
               setTimeout(() => {
-                window.location.reload()
-              }, 16)
+                window.location.reload();
+              }, 16);
             })
             .catch((err) => {
               this.$message.error({
                 title: '错误',
                 description: err.message,
-              })
-            })
+              });
+            });
         },
-      })
+      });
     },
   },
-}
+};
 </script>

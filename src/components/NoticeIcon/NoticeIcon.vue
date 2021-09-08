@@ -51,22 +51,22 @@ export default {
     return {
       loading: false,
       visible: false,
-    }
+    };
   },
   methods: {
     fetchNotice() {
       if (!this.visible) {
-        this.loading = true
+        this.loading = true;
         setTimeout(() => {
-          this.loading = false
-        }, 2000)
+          this.loading = false;
+        }, 2000);
       } else {
-        this.loading = false
+        this.loading = false;
       }
-      this.visible = !this.visible
+      this.visible = !this.visible;
     },
   },
-}
+};
 </script>
 
 <style lang="css">

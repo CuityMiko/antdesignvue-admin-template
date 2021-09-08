@@ -1,2 +1,2 @@
-import KSelectInputList from "./selectInputList.vue";
+import KSelectInputList from './selectInputList.vue';
 export default KSelectInputList;

@@ -11,6 +11,6 @@ const getters = {
   addRouters: (state) => state.permission.addRouters,
   multiTab: (state) => state.app.multiTab,
   multiTabList: (state) => state.multiTab.tabList,
-}
+};
 
-export default getters
+export default getters;

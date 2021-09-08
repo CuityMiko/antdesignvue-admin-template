@@ -1,7 +1,7 @@
 /**
  * 表单路由
  */
-import { RouteLayout } from '@/layouts'
+import { RouteLayout } from '@/layouts';
 
 const formModle = {
   path: '/form',
@@ -34,6 +34,6 @@ const formModle = {
       meta: { title: '表单对比', keepAlive: true },
     },
   ],
-}
+};
 
-export default formModle
+export default formModle;

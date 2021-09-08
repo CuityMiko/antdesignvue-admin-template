@@ -9,11 +9,7 @@
   <!-- 月份选择 -->
   <a-month-picker
     :style="`width:${record.options.width}`"
-    v-if="
-      record.type === 'date' &&
-        record.options.format === 'YYYY-MM' &&
-        record.options.range === false
-    "
+    v-if="record.type === 'date' && record.options.format === 'YYYY-MM' && record.options.range === false"
     :disabled="record.options.disabled || parentDisabled"
     :allowClear="record.options.clearable"
     :placeholder="record.options.placeholder"
@@ -48,10 +44,10 @@
   />
 </template>
 <script>
-import moment from "moment";
+import moment from 'moment';
 export default {
   // eslint-disable-next-line vue/require-prop-types
-  props: ["record", "value", "parentDisabled"],
+  props: ['record', 'value', 'parentDisabled'],
   data() {
     return {
       // date: undefined
@@ -59,31 +55,28 @@ export default {
   },
   computed: {
     date() {
-      if (
-        !this.value ||
-        (this.record.options.range && this.value.length === 0)
-      ) {
+      if (!this.value || (this.record.options.range && this.value.length === 0)) {
         return undefined;
       } else if (this.record.options.range) {
-        return this.value.map(item => moment(item, this.record.options.format));
+        return this.value.map((item) => moment(item, this.record.options.format));
       } else {
         return moment(this.value, this.record.options.format);
       }
-    }
+    },
   },
   methods: {
     handleSelectChange(val) {
       let date;
       if (!val || (this.record.options.range && val.length === 0)) {
-        date = "";
+        date = '';
       } else if (this.record.options.range) {
-        date = val.map(item => item.format(this.record.options.format));
+        date = val.map((item) => item.format(this.record.options.format));
       } else {
         date = val.format(this.record.options.format);
       }
-      this.$emit("change", date);
-      this.$emit("input", date);
-    }
-  }
+      this.$emit('change', date);
+      this.$emit('input', date);
+    },
+  },
 };
 </script>

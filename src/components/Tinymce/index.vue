@@ -12,13 +12,13 @@
  * docs:
  * https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html#tinymce
  */
-import editorImage from './components/EditorImage'
-import plugins from './plugins'
-import toolbar from './toolbar'
-import load from './dynamicLoadScript'
+import editorImage from './components/EditorImage';
+import plugins from './plugins';
+import toolbar from './toolbar';
+import load from './dynamicLoadScript';
 
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
-const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
+const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js';
 
 export default {
   name: 'Tinymce',
@@ -27,7 +27,7 @@ export default {
     id: {
       type: String,
       default: function () {
-        return 'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
+        return 'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '');
       },
     },
     value: {
@@ -38,7 +38,7 @@ export default {
       type: Array,
       required: false,
       default() {
-        return []
+        return [];
       },
     },
     menubar: {
@@ -68,52 +68,52 @@ export default {
         es: 'es_MX',
         ja: 'ja',
       },
-    }
+    };
   },
   computed: {
     containerWidth() {
-      const width = this.width
+      const width = this.width;
       if (/^[\d]+(\.[\d]+)?$/.test(width)) {
         // matches `100`, `'100'`
-        return `${width}px`
+        return `${width}px`;
       }
-      return width
+      return width;
     },
   },
   watch: {
     value(val) {
       if (!this.hasChange && this.hasInit) {
-        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
+        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''));
       }
     },
   },
   mounted() {
-    this.init()
+    this.init();
   },
   activated() {
     if (window.tinymce) {
-      this.initTinymce()
+      this.initTinymce();
     }
   },
   deactivated() {
-    this.destroyTinymce()
+    this.destroyTinymce();
   },
   destroyed() {
-    this.destroyTinymce()
+    this.destroyTinymce();
   },
   methods: {
     init() {
       // dynamic load tinymce from cdn
       load(tinymceCDN, (err) => {
         if (err) {
-          this.$message.error(err.message)
-          return
+          this.$message.error(err.message);
+          return;
         }
-        this.initTinymce()
-      })
+        this.initTinymce();
+      });
     },
     initTinymce() {
-      const _this = this
+      const _this = this;
       window.tinymce.init({
         selector: `#${this.tinymceId}`,
         language: this.languageTypeList['zh'],
@@ -135,21 +135,21 @@ export default {
         nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
         init_instance_callback: (editor) => {
           if (_this.value) {
-            editor.setContent(_this.value)
+            editor.setContent(_this.value);
           }
-          _this.hasInit = true
+          _this.hasInit = true;
           editor.on('NodeChange Change KeyUp SetContent', () => {
-            this.hasChange = true
-            this.$emit('input', editor.getContent())
-          })
-          console.log(`tinymce初始化完成！tinymceId:${this.tinymceId}`)
+            this.hasChange = true;
+            this.$emit('input', editor.getContent());
+          });
+          console.log(`tinymce初始化完成！tinymceId:${this.tinymceId}`);
           // 解决通过 multiTab 切换标签编辑器隐藏的问题
-          document.getElementById(this.tinymceId).style.display = 'block'
+          document.getElementById(this.tinymceId).style.display = 'block';
         },
         setup(editor) {
           editor.on('FullscreenStateChanged', (e) => {
-            _this.fullscreen = e.state
-          })
+            _this.fullscreen = e.state;
+          });
         },
         // 整合七牛上传
         // images_dataimg_filter(img) {
@@ -184,38 +184,38 @@ export default {
         //     console.log(err);
         //   });
         // },
-      })
+      });
     },
     destroyTinymce() {
-      const tinymce = window.tinymce.get(this.tinymceId)
+      const tinymce = window.tinymce.get(this.tinymceId);
       if (this.fullscreen) {
-        tinymce.execCommand('mceFullScreen')
+        tinymce.execCommand('mceFullScreen');
       }
       if (tinymce) {
-        tinymce.destroy()
+        tinymce.destroy();
       }
     },
     setContent(value) {
-      window.tinymce.get(this.tinymceId).setContent(value)
+      window.tinymce.get(this.tinymceId).setContent(value);
     },
     getContent() {
-      window.tinymce.get(this.tinymceId).getContent()
+      window.tinymce.get(this.tinymceId).getContent();
     },
     imageSuccessCBK(arr) {
       // 此处可根据实际接口返回数据去处理图片拼接
-      const _this = this
+      const _this = this;
       arr.forEach((v) => {
-        let src = ''
+        let src = '';
         if (v.url) {
-          src = v.url
+          src = v.url;
         } else {
-          src = v.response.files.file
+          src = v.response.files.file;
         }
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${src}" >`)
-      })
+        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${src}" >`);
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="less">

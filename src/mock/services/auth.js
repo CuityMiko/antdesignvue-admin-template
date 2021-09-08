@@ -1,18 +1,18 @@
-import Mock from 'mockjs2'
-import { builder, getBody } from '../util'
+import Mock from 'mockjs2';
+import { builder, getBody } from '../util';
 
 // 模拟两个用户
 const admin_user = {
   username: 'admin',
   password: '21232f297a57a5a743894a0e4a801fc3', // MD5加密
-}
+};
 const super_user = {
   username: 'super',
   password: '1b3231655cebb7a1f783eddf27d254ca', // MD5加密
-}
+};
 
 const login = (options) => {
-  const body = getBody(options)
+  const body = getBody(options);
   // console.log('mock: body', body)
   if (body.username === 'admin' && body.password === admin_user.password) {
     return builder(
@@ -36,7 +36,7 @@ const login = (options) => {
       '',
       200,
       { 'Custom-Header': Mock.mock('@guid') }
-    )
+    );
   } else if (body.username === 'super' && body.password === super_user.password) {
     return builder(
       {
@@ -59,24 +59,24 @@ const login = (options) => {
       '',
       200,
       { 'Custom-Header': Mock.mock('@guid') }
-    )
+    );
   }
-  return builder({ isLoginRequest: true }, '账户或密码错误', 401)
-}
+  return builder({ isLoginRequest: true }, '账户或密码错误', 401);
+};
 
 const logout = () => {
-  return builder({}, '[测试接口] 注销成功')
-}
+  return builder({}, '[测试接口] 注销成功');
+};
 
 const smsCaptcha = () => {
-  return builder({ captcha: Mock.mock('@integer(10000, 99999)') })
-}
+  return builder({ captcha: Mock.mock('@integer(10000, 99999)') });
+};
 
 const twofactor = () => {
-  return builder({ stepCode: Mock.mock('@integer(0, 1)') })
-}
+  return builder({ stepCode: Mock.mock('@integer(0, 1)') });
+};
 
-Mock.mock(/\/auth\/login/, 'post', login)
-Mock.mock(/\/auth\/logout/, 'post', logout)
-Mock.mock(/\/account\/sms/, 'post', smsCaptcha)
-Mock.mock(/\/auth\/2step-code/, 'post', twofactor)
+Mock.mock(/\/auth\/login/, 'post', login);
+Mock.mock(/\/auth\/logout/, 'post', logout);
+Mock.mock(/\/account\/sms/, 'post', smsCaptcha);
+Mock.mock(/\/auth\/2step-code/, 'post', twofactor);

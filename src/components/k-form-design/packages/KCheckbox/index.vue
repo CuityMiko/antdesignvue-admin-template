@@ -10,35 +10,35 @@
  * description 多选框组件,改成v-model Boolean值
  */
 export default {
-  name: "kCheckbox",
+  name: 'kCheckbox',
   data() {
     return {
-      chackboxVal: false
+      chackboxVal: false,
     };
   },
   props: {
     value: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
   computed: {
     _val() {
       this.handleSetChackboxVal(this.value);
       return this.value;
-    }
+    },
   },
   methods: {
     handleChange(e) {
-      this.$emit("input", e.target.checked);
+      this.$emit('input', e.target.checked);
     },
     handleSetChackboxVal(val) {
       this.chackboxVal = val;
-    }
-  }
+    },
+  },
 };
 </script>

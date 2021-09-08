@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import app from './modules/app'
-import user from './modules/user'
-import multiTab from './modules/multi-tab'
-import permission from './modules/permission'
-import getters from './getters'
+import app from './modules/app';
+import user from './modules/user';
+import multiTab from './modules/multi-tab';
+import permission from './modules/permission';
+import getters from './getters';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   getters,
@@ -17,4 +17,4 @@ export default new Vuex.Store({
     permission,
     multiTab,
   },
-})
+});
